@@ -1,0 +1,9 @@
+# Data Format: username|password
+burgerpalace|burger123
+pizzahouse|pizza123
+sushiexpress|sushi123
+tacocorner|taco123
+noodlebar|noodle123
+bfc|bfc123
+hfc|hfc1234
+afc|afc123

@@ -1,0 +1,9 @@
+# Data Format: restaurant_id|username|restaurant_name|is_active
+1|burgerpalace|Burger Palace|1
+2|pizzahouse|Pizza House|1
+3|sushiexpress|Sushi Express|1
+4|tacocorner|Taco Corner|0
+5|noodlebar|Noodle Bar|1
+6|bfc|BFC|1
+7|hfc|HFC|1
+8|afc|AFC|1

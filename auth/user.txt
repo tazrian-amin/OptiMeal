@@ -1,0 +1,15 @@
+# Data Format: phone|name
+01712345678|Ahmed Rahman
+01723456789|Fatima Khan
+01734567890|Mohammad Ali
+01745678901|Aisha Begum
+01756789012|Hassan Ahmed
+01767890123|Nadia Islam
+01778901234|Omar Farooq
+01789012345|Zara Malik
+01790123456|Imran Khan
+01701234567|Sana Ahmed
+01909770862|Tazrian Amin
+01897694679|Taz Rain
+019097708000|Invalid Pagla
+01909770866|Sohan Rahman
