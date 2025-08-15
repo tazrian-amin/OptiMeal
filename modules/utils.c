@@ -1,6 +1,18 @@
 #include "../types.h"
 
 // ============================================================================
+// CROSS-PLATFORM UTILITIES
+// ============================================================================
+
+void clearScreen() {
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
+}
+
+// ============================================================================
 // INPUT HANDLING
 // ============================================================================
 
@@ -14,6 +26,35 @@ void clearInputBuffer() {
 // ============================================================================
 
 void hidePassword(char* password, int maxLength) {
+#ifdef _WIN32
+    printf("Enter password: ");
+    fflush(stdout);
+    
+    int charIndex = 0;
+    char inputChar;
+    
+    while (charIndex < maxLength - 1) {
+        inputChar = getchar();
+        
+        if (inputChar == '\n') {
+            break;
+        } else if (inputChar == '\b' || inputChar == 8) { // Backspace
+            if (charIndex > 0) {
+                charIndex--;
+                printf("\b \b"); // Move back, clear character, move back again
+                fflush(stdout);
+            }
+        } else {
+            password[charIndex] = inputChar;
+            printf("*");
+            fflush(stdout);
+            charIndex++;
+        }
+    }
+    
+    password[charIndex] = '\0';
+    printf("\n");
+#else
     struct termios oldTerm, newTerm;
     int charIndex = 0;
     char inputChar;
@@ -53,6 +94,7 @@ void hidePassword(char* password, int maxLength) {
     
     // Restore original terminal settings
     tcsetattr(STDIN_FILENO, TCSANOW, &oldTerm);
+#endif
 }
 
 // ============================================================================

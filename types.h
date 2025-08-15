@@ -250,6 +250,9 @@ void displayRestaurantMenuItems(int restaurantId);
 // UTILITY LAYER (utils.c)
 // ============================================================================
 
+// Cross-Platform Utilities
+void clearScreen();
+
 // Input Handling
 void clearInputBuffer();
 

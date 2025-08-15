@@ -182,12 +182,19 @@ The application uses flat-file storage with the following format:
 ## 🛠️ Installation & Setup
 
 ### Prerequisites
+
+#### For macOS/Linux:
 - GCC compiler
-- Unix-like operating system (Linux, macOS)
 - Make utility
+
+#### For Windows:
+- MinGW-w64 or MSYS2 (provides GCC compiler)
+- Make utility (usually included with MinGW/MSYS2)
+- Git Bash or Windows Terminal (recommended)
 
 ### Building the Application
 
+#### For macOS/Linux:
 1. **Clone or download the project**
    ```bash
    cd OptiMeal
@@ -203,6 +210,29 @@ The application uses flat-file storage with the following format:
    ./optimeal
    ```
 
+#### For Windows:
+1. **Install MinGW-w64 or MSYS2**
+   - Download from: https://www.mingw-w64.org/downloads/
+   - Or use Chocolatey: `choco install mingw`
+   - Ensure `gcc` and `make` are in your PATH
+
+2. **Clone or download the project**
+   ```bash
+   cd OptiMeal
+   ```
+
+3. **Compile the application**
+   ```bash
+   make
+   ```
+
+4. **Run the application**
+   ```bash
+   ./optimeal.exe
+   # or
+   optimeal.exe
+   ```
+
 ### Clean Build
 ```bash
 make clean
@@ -213,7 +243,13 @@ make
 
 ### Starting the Application
 ```bash
+# macOS/Linux
 ./optimeal
+
+# Windows
+./optimeal.exe
+# or
+optimeal.exe
 ```
 
 ### Main Menu Options
@@ -272,7 +308,7 @@ make
 - **Modular Design**: Clean separation of concerns
 - **Error Handling**: Comprehensive error checking and user feedback
 - **Memory Management**: Safe file operations and data handling
-- **Cross-Platform**: Unix/Linux/macOS compatibility
+- **Cross-Platform**: Full compatibility with Windows, macOS, and Linux
 
 ### Performance
 - **Efficient File I/O**: Optimized database operations

@@ -64,7 +64,7 @@ void adminMenu() {
         if (menuChoice != 0) {
             printf("\nPress Enter to continue...");
             getchar();
-            system("clear");
+            clearScreen();
         }
         
     } while (menuChoice != 0);

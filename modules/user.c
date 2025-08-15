@@ -246,7 +246,7 @@ void placeOrder(const char* phone) {
         } else {
             printf("Invalid option! Press 'Enter' to try again...");
             getchar();
-            system("clear");
+            clearScreen();
             
             printf("\n=== AVAILABLE MENU ITEMS (Within Budget: $%.2f, Category: %s) ===\n", budget, selectedCategory);
             printf("\n%-5s %-30s %-10s %-15s\n", "ID", "Name", "Price", "Restaurant");

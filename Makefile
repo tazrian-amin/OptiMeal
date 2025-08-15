@@ -2,9 +2,19 @@
 # BUILD CONFIGURATION
 # ============================================================================
 
-CC = gcc
+ifeq ($(OS),Windows_NT)
+    CC = gcc
+    TARGET = optimeal.exe
+    RM = del /Q
+    CLEAR = cls
+else
+    CC = gcc
+    TARGET = optimeal
+    RM = rm -f
+    CLEAR = clear
+endif
+
 CFLAGS = -Wall -Wextra -std=c99
-TARGET = optimeal
 
 # ============================================================================
 # SOURCE FILES
@@ -41,16 +51,27 @@ $(TARGET): $(OBJECTS)
 # ============================================================================
 
 clean:
-	rm -f $(OBJECTS) $(TARGET)
+	$(RM) $(OBJECTS) $(TARGET)
 
 run: clean all
-	clear
+	$(CLEAR)
+ifeq ($(OS),Windows_NT)
+	.\$(TARGET)
+else
 	./$(TARGET)
+endif
 
 # ============================================================================
 # DEPENDENCIES
 # ============================================================================
 
-# Install dependencies (for macOS)
+# Install dependencies
 install-deps:
+ifeq ($(OS),Windows_NT)
+	@echo "For Windows, please install MinGW-w64 or MSYS2"
+	@echo "Download from: https://www.mingw-w64.org/downloads/"
+	@echo "Or use Chocolatey: choco install mingw"
+else
+	@echo "For macOS/Linux, installing gcc..."
 	brew install gcc
+endif
