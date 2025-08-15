@@ -1,10 +1,10 @@
 # OptiMeal - Optimal Meal Ordering & Restaurant Management System
 
-A revolutionary budget-first food ordering system designed especially for students and young professionals who struggle with the overwhelming choices and budget constraints of traditional food delivery apps.
+A revolutionary budget-first food ordering system designed for anyone on a budget who struggles with the overwhelming choices and budget constraints of traditional food delivery apps - students, young professionals, job holders, and budget-conscious individuals.
 
 ## 🎯 **The Real Problem We're Solving**
 
-As university students, we face a daily struggle that existing food delivery apps fail to address:
+As budget-conscious individuals (students, young professionals, job holders), we face a daily struggle that existing food delivery apps fail to address:
 
 **The "Too Many Options" Problem:**
 - **Decision Paralysis**: Apps like FoodPanda and Pathao Food overwhelm us with hundreds of menu items
@@ -13,7 +13,7 @@ As university students, we face a daily struggle that existing food delivery app
 - **Revenue-First Approach**: Existing platforms prioritize restaurant profits over student affordability
 
 **Why OptiMeal?**
-OptiMeal was born from real frustration. Instead of building another app that maximizes restaurant revenue, we created a solution that puts students first - with budget filtering, simplified choices, and time-efficient ordering that respects our financial constraints and academic schedules.
+OptiMeal was born from real frustration. Instead of building another app that maximizes restaurant revenue, we created a solution that puts budget-conscious users first - with budget filtering, simplified choices, and time-efficient ordering that respects financial constraints and busy schedules.
 
 ---
 
@@ -78,7 +78,7 @@ OptiMeal/
   - Browse menu items by category (Breakfast, Lunch, Snacks, Dinner)
   - **Automatic budget filtering** - only see items within your price range
   - **Decision simplification** - no more overwhelming choices
-  - **Time-efficient ordering** - quick decisions for busy students
+  - **Time-efficient ordering** - quick decisions for busy individuals
   - Real-time menu availability checking
   
 - **User Management**
@@ -86,7 +86,7 @@ OptiMeal/
   - Automatic account creation for new users
   - Profile management and order history
   
-- **Student-Friendly Loyalty Program**
+- **Budget-Friendly Loyalty Program**
   - Points earned on every purchase
   - Redeemable rewards and discounts
   - Spending analytics and insights
@@ -116,7 +116,7 @@ OptiMeal/
 
 ## 🍽️ Food Categories & Menu System
 
-**No More Choice Overwhelm!** Our system supports a comprehensive range of food categories, but presents them in a student-friendly way:
+**No More Choice Overwhelm!** Our system supports a comprehensive range of food categories, but presents them in a budget-friendly way:
 
 | Category | Examples |
 |----------|----------|
@@ -288,29 +288,29 @@ make
 - **Limited Scalability**: Designed for small to medium-scale operations (scaling up!)
 
 **Why These Limitations Exist:**
-This is our first version built as a CSE115 lab project. We focused on solving the core problem (budget-first ordering) first, and these features will come in future iterations as we learn more advanced programming concepts.
+This is our first version built as a CSE115 lab project. We focused on solving the core problem (budget-first ordering) first, and these features will come in future iterations as we learn more advanced programming concepts. The app serves as a proof-of-concept for budget-conscious food ordering.
 
 ## 🔮 Future Enhancements
 
-**Our Vision for OptiMeal (Student-Driven Development):**
+**Our Vision for OptiMeal (Budget-First Development):**
 
-### Phase 1: Enhanced Student Experience (Next Semester)
+### Phase 1: Enhanced User Experience
 - **Graphical User Interface**: Modern GUI implementation
 - **Mobile Application**: Cross-platform mobile app development
 - **Real-time Updates**: Live order tracking and notifications
 
-### Phase 2: Advanced Features (Summer Break)
+### Phase 2: Advanced Features
 - **Network Support**: Multi-user and remote access capabilities
 - **Payment Integration**: Online payment processing
 - **Advanced Analytics**: Machine learning-based recommendations
 
-### Phase 3: Scale & Innovation (Final Year)
+### Phase 3: Scale & Innovation
 - **AI-Powered Recommendations**: Smart meal suggestions based on budget and preferences
 - **Social Features**: Student reviews and ratings
 - **Campus Integration**: University meal plan integration
 
 **Why This Roadmap?**
-We're building this as students, for students. Each phase represents what we learn in our programming courses, so the app grows with our skills!
+We're building this as budget-conscious individuals, for budget-conscious individuals. Each phase represents what we learn in our programming courses, so the app grows with our skills while serving a broader audience!
 
 ## 📝 Development
 
@@ -338,7 +338,7 @@ We're building this as students, for students. Each phase represents what we lea
 This project is developed for educational purposes as part of the CSE115 Lab Project course.
 
 **Our Story:**
-OptiMeal started as a simple solution to a daily problem we faced as students. What began as a C programming assignment became a passion project when we realized how many other students struggle with the same food ordering issues. We're sharing this code to help other students learn and to inspire solutions to real-world problems.
+OptiMeal started as a simple solution to a daily problem we faced as budget-conscious individuals. What began as a C programming assignment became a passion project when we realized how many people struggle with the same food ordering issues - overwhelming choices and no budget protection. We're sharing this code to help others learn and to inspire solutions to real-world problems that affect millions of people daily.
 
 ## 👥 Contributing
 
@@ -346,39 +346,37 @@ OptiMeal started as a simple solution to a daily problem we faced as students. W
 
 **How You Can Contribute:**
 - **Bug Reports**: Found an issue? Let us know!
-- **Feature Ideas**: Have ideas for student-friendly features?
+- **Feature Ideas**: Have ideas for budget-friendly features?
 - **Code Improvements**: Better ways to implement something?
-- **Documentation**: Help make this easier for other students to understand
+- **Documentation**: Help make this easier for others to understand
 
 **Our Guidelines:**
-- Keep it student-focused and budget-friendly
-- Maintain the existing architecture
+- Keep it budget-focused and user-friendly
+- Maintain the existing architecture with separation of concerns
 - Add comments explaining your changes
-- Test thoroughly before submitting
+- Test thoroughly before submitting a pull request
 
 **Why Contribute?**
-Because we're all students trying to solve real problems. Your input could help thousands of other students who face the same daily struggles with food ordering!
+Because we're all trying to solve real problems that affect millions of people daily. Your input could help thousands of budget-conscious individuals who face the same daily struggles with food ordering!
 
 ## 📞 Support
 
 **Need Help? We're Students Too!**
 
 **For Technical Issues:**
-- Check the course materials first
 - Review the code comments (we tried to explain everything!)
 - Contact the development team (we're friendly!)
 
 **For Feature Requests:**
-- Have an idea that would help students? Tell us!
 - Found a bug that affects your ordering? Report it!
 - Want to help improve the app? Join us!
 
 **Our Promise:**
-We built this to solve real problems, so we're committed to making it work for you. Your feedback helps us build better solutions for all students.
+We built this to solve real problems, so we're committed to making it work for you. Your feedback helps us build better solutions for all budget-conscious individuals.
 
 ---
 
-**OptiMeal** - Built by students, for students. Because we know what it's like to spend 30 minutes deciding what to order and still go over budget! 🍕📚💰
+**OptiMeal** - Built by budget-conscious individuals, for budget-conscious individuals. Because we know what it's like to spend 30 minutes deciding what to order and still go over budget! 🍕💼💰
 
 ---
 
