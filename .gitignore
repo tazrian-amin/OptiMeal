@@ -1,1 +1,18 @@
+# macOS system files
 .DS_Store
+
+# Build artifacts
+*.o
+optimeal
+optimeal.exe
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
