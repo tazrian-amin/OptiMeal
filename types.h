@@ -259,6 +259,7 @@ void clearInputBuffer();
 // String Utilities
 void toLowerCase(char* str);
 int strContainsIgnoreCase(const char* haystack, const char* needle);
+int isValidPhoneNumber(const char* phone);
 
 // Sorting Utilities
 void sortMenuItemsByPrice(MenuItem* items, int count);

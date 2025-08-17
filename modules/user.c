@@ -9,9 +9,17 @@ int userLogin(char* phone) {
     char existingUserName[100];
     
     printf("\n=== USER LOGIN ===\n");
-    printf("Enter phone number (01XXXXXXXXX): ");
-    scanf("%s", phone);
-    clearInputBuffer();
+    
+    do {
+        printf("Enter phone number (01XXXXXXXXX): ");
+        scanf("%s", phone);
+        clearInputBuffer();
+        
+        if (!isValidPhoneNumber(phone)) {
+            printf("Invalid phone number format! Please enter exactly 11 digits starting with '01'.\n");
+            printf("Example: 01712345678\n\n");
+        }
+    } while (!isValidPhoneNumber(phone));
     
     if (checkIfUserExists(phone, existingUserName)) {
         printf("\nWelcome back, %s!\n", existingUserName);

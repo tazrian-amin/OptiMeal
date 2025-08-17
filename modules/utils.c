@@ -121,6 +121,29 @@ int strContainsIgnoreCase(const char* haystack, const char* needle) {
     return strstr(haystackLower, needleLower) != NULL;
 }
 
+// phone number validation
+int isValidPhoneNumber(const char* phone) {
+    if (phone == NULL || strlen(phone) == 0) {
+        return 0;
+    }
+    
+    if (strlen(phone) != 11) {
+        return 0;
+    }
+    
+    if (phone[0] != '0' || phone[1] != '1') {
+        return 0;
+    }
+    
+    for (int i = 0; phone[i]; i++) {
+        if (!isdigit(phone[i])) {
+            return 0;
+        }
+    }
+    
+    return 1; 
+}
+
 // ============================================================================
 // SORTING UTILITIES
 // ============================================================================
