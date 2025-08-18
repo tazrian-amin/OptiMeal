@@ -11,7 +11,7 @@ int addRestaurantToDatabase(int restaurantId, const char* username, const char* 
 
 // ===== READ =====
 void fetchRestaurantNameById(int restaurantId, char* name) {
-    FILE* file = fopen("database/restaurants.txt", "r");
+    FILE* file = openRestaurantsFile("r");
     if (file == NULL) {
         strcpy(name, "Unknown");
         return;
@@ -29,13 +29,13 @@ void fetchRestaurantNameById(int restaurantId, char* name) {
         if (sscanf(line, "%d|%[^|]|%[^|]|%d", &id, username, restaurantName, &isActive) == 4) {
             if (id == restaurantId) {
                 strcpy(name, restaurantName);
-                fclose(file);
+                safeFileClose(file);
                 return;
             }
         }
     }
     
-    fclose(file);
+    safeFileClose(file);
     strcpy(name, "Unknown");
 }
 
@@ -98,7 +98,7 @@ int fetchOwnerRestaurantData(const char* username, Restaurant* restaurant) {
     if (restaurantId == -1) return 0;
     
     // Get restaurant details from database
-    FILE* file = fopen("database/restaurants.txt", "r");
+    FILE* file = openRestaurantsFile("r");
     if (file == NULL) return 0;
     
     char line[256];
@@ -117,18 +117,18 @@ int fetchOwnerRestaurantData(const char* username, Restaurant* restaurant) {
                 restaurant->isActive = isActive;
                 restaurant->menuSize = countMenuItems(restaurantId);
                 restaurant->menu = NULL; // For now, we don't load the full menu
-                fclose(file);
+                safeFileClose(file);
                 return 1;
             }
         }
     }
     
-    fclose(file);
+    safeFileClose(file);
     return 0;
 }
 
 int fetchAllRestaurantsForAdmin(Restaurant* restaurants, int maxRestaurants) {
-    FILE* file = fopen("database/restaurants.txt", "r");
+    FILE* file = openRestaurantsFile("r");
     if (file == NULL) return 0;
     
     char line[256];
@@ -151,12 +151,12 @@ int fetchAllRestaurantsForAdmin(Restaurant* restaurants, int maxRestaurants) {
         }
     }
     
-    fclose(file);
+    safeFileClose(file);
     return count;
 }
 
 int fetchCustomersByRestaurant(int restaurantId, Customer* customers, int maxCustomers) {
-    FILE* ordersFile = fopen("database/orders.txt", "r");
+    FILE* ordersFile = openOrdersFile("r");
     if (ordersFile == NULL) return 0;
     
     int customerCount = 0;
@@ -189,7 +189,7 @@ int fetchCustomersByRestaurant(int restaurantId, Customer* customers, int maxCus
             }
         }
     }
-    fclose(ordersFile);
+    safeFileClose(ordersFile);
     
     for (int i = 0; i < uniqueCount && customerCount < maxCustomers; i++) {
         if (fetchCustomerData(uniquePhones[i], &customers[customerCount])) {
@@ -206,21 +206,19 @@ int fetchCustomersByRestaurant(int restaurantId, Customer* customers, int maxCus
 
 // ===== CREATE =====
 int addMenuItem(int restaurantId, const char* name, double price, const char* category) {
-    FILE* file = fopen("database/menu_items.txt", "a");
-    if (file == NULL) {
-        return 0;
-    }
+    FILE* file = openMenuItemsFile("a");
+    if (file == NULL) return 0;
     
     int nextId = generateNextMenuItemId();
     fprintf(file, "%d|%d|%s|%.2f|%s|1\n", nextId, restaurantId, name, price, category);
-    fclose(file);
+    safeFileClose(file);
     
     return 1;
 }
 
 // ===== READ =====
 void fetchMenuItemNameById(int itemId, char* name) {
-    FILE* file = fopen("database/menu_items.txt", "r");
+    FILE* file = openMenuItemsFile("r");
     if (file == NULL) {
         strcpy(name, "Unknown");
         return;
@@ -240,18 +238,18 @@ void fetchMenuItemNameById(int itemId, char* name) {
         if (sscanf(line, "%d|%d|%[^|]|%lf|%[^|]|%d", &id, &restaurantId, itemName, &price, category, &available) == 6) {
             if (id == itemId) {
                 strcpy(name, itemName);
-                fclose(file);
+                safeFileClose(file);
                 return;
             }
         }
     }
     
-    fclose(file);
+    safeFileClose(file);
     strcpy(name, "Unknown");
 }
 
 double fetchMenuItemPrice(int itemId) {
-    FILE* file = fopen("database/menu_items.txt", "r");
+    FILE* file = openMenuItemsFile("r");
     if (file == NULL) return -1;
     
     char fileLine[256];
@@ -267,18 +265,18 @@ double fetchMenuItemPrice(int itemId) {
         
         if (sscanf(fileLine, "%d|%d|%[^|]|%lf|%[^|]|%d", &fileItemId, &fileRestaurantId, fileItemName, &fileItemPrice, fileItemCategory, &fileIsAvailable) == 6) {
             if (fileItemId == itemId) {
-                fclose(file);
+                safeFileClose(file);
                 return fileItemPrice;
             }
         }
     }
     
-    fclose(file);
+    safeFileClose(file);
     return -1;
 }
 
 int fetchMenuItemRestaurantId(int itemId) {
-    FILE* file = fopen("database/menu_items.txt", "r");
+    FILE* file = openMenuItemsFile("r");
     if (file == NULL) return -1;
     
     char line[256];
@@ -294,18 +292,18 @@ int fetchMenuItemRestaurantId(int itemId) {
         
         if (sscanf(line, "%d|%d|%[^|]|%lf|%[^|]|%d", &id, &restaurantId, name, &price, category, &available) == 6) {
             if (id == itemId) {
-                fclose(file);
+                safeFileClose(file);
                 return restaurantId;
             }
         }
     }
     
-    fclose(file);
+    safeFileClose(file);
     return -1;
 }
 
 int fetchMenuItemDetails(int itemId, char* name, double* price, char* category, int* available) {
-    FILE* file = fopen("database/menu_items.txt", "r");
+    FILE* file = openMenuItemsFile("r");
     if (file == NULL) return 0;
     
     char line[256];
@@ -325,18 +323,18 @@ int fetchMenuItemDetails(int itemId, char* name, double* price, char* category, 
                 *price = itemPrice;
                 strcpy(category, itemCategory);
                 *available = itemAvailable;
-                fclose(file);
+                safeFileClose(file);
                 return 1;
             }
         }
     }
     
-    fclose(file);
+    safeFileClose(file);
     return 0;
 }
 
 int fetchMenuItemsByCategory(const char* category, double budget, MenuItem* items, int maxItems) {
-    FILE* file = fopen("database/menu_items.txt", "r");
+    FILE* file = openMenuItemsFile("r");
     if (file == NULL) return 0;
     
     int count = 0;
@@ -362,12 +360,12 @@ int fetchMenuItemsByCategory(const char* category, double budget, MenuItem* item
         }
     }
     
-    fclose(file);
+    safeFileClose(file);
     return count;
 }
 
 int fetchRestaurantMenuItems(int restaurantId, MenuItem* items, int maxItems) {
-    FILE* file = fopen("database/menu_items.txt", "r");
+    FILE* file = openMenuItemsFile("r");
     if (file == NULL) return 0;
     
     int count = 0;
@@ -393,12 +391,12 @@ int fetchRestaurantMenuItems(int restaurantId, MenuItem* items, int maxItems) {
         }
     }
     
-    fclose(file);
+    safeFileClose(file);
     return count;
 }
 
 int fetchRestaurantMenuItemsForDisplay(int restaurantId, MenuItem* items, int maxItems) {
-    FILE* file = fopen("database/menu_items.txt", "r");
+    FILE* file = openMenuItemsFile("r");
     if (file == NULL) return 0;
     
     char line[256];
@@ -426,12 +424,12 @@ int fetchRestaurantMenuItemsForDisplay(int restaurantId, MenuItem* items, int ma
         }
     }
     
-    fclose(file);
+    safeFileClose(file);
     return count;
 }
 
 int countMenuItems(int restaurantId) {
-    FILE* file = fopen("database/menu_items.txt", "r");
+    FILE* file = openMenuItemsFile("r");
     if (file == NULL) {
         return 0;
     }
@@ -451,18 +449,18 @@ int countMenuItems(int restaurantId) {
         }
     }
     
-    fclose(file);
+    safeFileClose(file);
     return count;
 }
 
 // ===== UPDATE =====
 int updateMenuItemInDatabase(int itemId, const char* name, double price, const char* category, int isAvailable) {
-    FILE* originalFile = fopen("database/menu_items.txt", "r");
+    FILE* originalFile = openMenuItemsFile("r");
     FILE* tempFile = fopen("database/menu_items_temp.txt", "w");
     
     if (originalFile == NULL || tempFile == NULL) {
-        if (originalFile) fclose(originalFile);
-        if (tempFile) fclose(tempFile);
+        if (originalFile) safeFileClose(originalFile);
+        if (tempFile) safeFileClose(tempFile);
         return 0;
     }
     
@@ -493,8 +491,8 @@ int updateMenuItemInDatabase(int itemId, const char* name, double price, const c
         }
     }
     
-    fclose(originalFile);
-    fclose(tempFile);
+    safeFileClose(originalFile);
+    safeFileClose(tempFile);
     
     if (itemUpdated) {
         if (remove("database/menu_items.txt") == 0) {
@@ -512,12 +510,12 @@ int updateMenuItemInDatabase(int itemId, const char* name, double price, const c
 
 // ===== DELETE =====
 int deleteMenuItemFromDatabase(int itemId) {
-    FILE* originalFile = fopen("database/menu_items.txt", "r");
+    FILE* originalFile = openMenuItemsFile("r");
     FILE* tempFile = fopen("database/menu_items_temp.txt", "w");
     
     if (originalFile == NULL || tempFile == NULL) {
-        if (originalFile) fclose(originalFile);
-        if (tempFile) fclose(tempFile);
+        if (originalFile) safeFileClose(originalFile);
+        if (tempFile) safeFileClose(tempFile);
         return 0;
     }
     
@@ -550,8 +548,8 @@ int deleteMenuItemFromDatabase(int itemId) {
         }
     }
     
-    fclose(originalFile);
-    fclose(tempFile);
+    safeFileClose(originalFile);
+    safeFileClose(tempFile);
     
     if (itemDeleted) {
         // Replace original file with temp file
@@ -576,22 +574,19 @@ int deleteMenuItemFromDatabase(int itemId) {
 
 // ===== CREATE =====
 int addCustomer(const char* phone, const char* name) {
-    FILE* file = fopen("database/customers.txt", "a");
-    if (file == NULL) {
-        printf("Error: Cannot open customers database file for writing!\n");
-        return 0;
-    }
+    FILE* file = openCustomersFile("a");
+    if (file == NULL) return 0;
     
     // Add new customer with default values (0 points, $0.00 spent)
     fprintf(file, "%s|%s|0|0.00\n", phone, name);
-    fclose(file);
+    safeFileClose(file);
     
     return 1; // Successfully added to database
 }
 
 // ===== READ =====
 int fetchCustomerPoints(const char* phone) {
-    FILE* file = fopen("database/customers.txt", "r");
+    FILE* file = openCustomersFile("r");
     if (file == NULL) return 0;
     
     char line[256];
@@ -605,18 +600,18 @@ int fetchCustomerPoints(const char* phone) {
         
         if (sscanf(line, "%[^|]|%[^|]|%d|%lf", filePhone, name, &points, &totalSpent) == 4) {
             if (strcmp(filePhone, phone) == 0) {
-                fclose(file);
+                safeFileClose(file);
                 return points;
             }
         }
     }
     
-    fclose(file);
+    safeFileClose(file);
     return 0;
 }
 
 int fetchCustomerData(const char* phone, Customer* customer) {
-    FILE* file = fopen("database/customers.txt", "r");
+    FILE* file = openCustomersFile("r");
     if (file == NULL) return 0;
     
     char line[256];
@@ -634,18 +629,18 @@ int fetchCustomerData(const char* phone, Customer* customer) {
                 strcpy(customer->name, name);
                 customer->points = points;
                 customer->totalSpent = totalSpent;
-                fclose(file);
+                safeFileClose(file);
                 return 1;
             }
         }
     }
     
-    fclose(file);
+    safeFileClose(file);
     return 0;
 }
 
 int fetchAllCustomersForAdmin(Customer* customers, int maxCustomers) {
-    FILE* file = fopen("database/customers.txt", "r");
+    FILE* file = openCustomersFile("r");
     if (file == NULL) return 0;
     
     char fileLine[256];
@@ -667,26 +662,19 @@ int fetchAllCustomersForAdmin(Customer* customers, int maxCustomers) {
         }
     }
     
-    fclose(file);
+    safeFileClose(file);
     return count;
 }
 
 // ===== UPDATE =====
 void updateCustomerPoints(const char* phone, int pointsChange) {
     // Read current customer data
-    FILE* file = fopen("database/customers.txt", "r");
-    if (file == NULL) {
-        printf("Error: Cannot open customers database file!\n");
-        return;
-    }
+    FILE* file = openCustomersFile("r");
+    if (file == NULL) return;
     
     // Create temporary file for updates
-    FILE* tempFile = fopen("database/customers_temp.txt", "w");
-    if (tempFile == NULL) {
-        printf("Error: Cannot create temporary file!\n");
-        fclose(file);
-        return;
-    }
+    FILE* tempFile = safeFileOpen("database/customers_temp.txt", "w");
+    if (tempFile == NULL) return;
     
     char line[256];
     char filePhone[12];
@@ -712,8 +700,8 @@ void updateCustomerPoints(const char* phone, int pointsChange) {
         }
     }
     
-    fclose(file);
-    fclose(tempFile);
+    safeFileClose(file);
+    safeFileClose(tempFile);
     
     if (found) {
         // Replace original file with updated file
@@ -728,19 +716,12 @@ void updateCustomerPoints(const char* phone, int pointsChange) {
 
 int updateCustomerStatsInDatabase(const char* phone, double amount, int pointsEarned) {
     // Read current customer data
-    FILE* file = fopen("database/customers.txt", "r");
-    if (file == NULL) {
-        printf("Error: Cannot open customers database file!\n");
-        return 0;
-    }
+    FILE* file = openCustomersFile("r");
+    if (file == NULL) return 0;
     
     // Create temporary file for updates
-    FILE* tempFile = fopen("database/customers_temp.txt", "w");
-    if (tempFile == NULL) {
-        printf("Error: Cannot create temporary file!\n");
-        fclose(file);
-        return 0;
-    }
+    FILE* tempFile = safeFileOpen("database/customers_temp.txt", "w");
+    if (tempFile == NULL) return 0;
     
     char line[256];
     char filePhone[12];
@@ -766,8 +747,8 @@ int updateCustomerStatsInDatabase(const char* phone, double amount, int pointsEa
         }
     }
     
-    fclose(file);
-    fclose(tempFile);
+    safeFileClose(file);
+    safeFileClose(tempFile);
     
     if (found) {
         // Replace original file with updated file
@@ -788,19 +769,19 @@ int updateCustomerStatsInDatabase(const char* phone, double amount, int pointsEa
 
 // ===== CREATE =====
 int addOrderToDatabase(int orderId, const char* phone, int restaurantId, int itemId, int quantity, double finalAmount, time_t now) {
-    FILE* file = fopen("database/orders.txt", "a");
+    FILE* file = openOrdersFile("a");
     if (file == NULL) return 0;
     
     fprintf(file, "%d|%s|%d|%d|%d|%.2f|%ld\n", 
             orderId, phone, restaurantId, itemId, quantity, finalAmount, now);
-    fclose(file);
+    safeFileClose(file);
     
     return 1;
 }
 
 // ===== READ =====
 int fetchUserOrders(const char* phone, Order* orders, int maxOrders) {
-    FILE* file = fopen("database/orders.txt", "r");
+    FILE* file = openOrdersFile("r");
     if (file == NULL) return 0;
     
     int count = 0;
@@ -825,6 +806,6 @@ int fetchUserOrders(const char* phone, Order* orders, int maxOrders) {
         }
     }
     
-    fclose(file);
+    safeFileClose(file);
     return count;
 }
