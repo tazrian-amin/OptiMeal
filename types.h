@@ -6,9 +6,15 @@
 #include <string.h>
 #include <time.h>
 #include <ctype.h>
+#include <stdarg.h>
+#include <sys/stat.h>
+
+#ifdef _WIN32
+#include <conio.h>
+#else
 #include <termios.h>
 #include <unistd.h>
-#include <stdarg.h>
+#endif
 
 // ============================================================================
 // FILE PATH CONSTANTS

@@ -27,38 +27,37 @@ void clearInputBuffer() {
 
 void hidePassword(char* password, int maxLength) {
 #ifdef _WIN32
-    printf("Enter password: ");
-    fflush(stdout);
-    
     int charIndex = 0;
     char inputChar;
-    
+
+    printf("Enter password: ");
+    fflush(stdout);
+
     while (charIndex < maxLength - 1) {
-        inputChar = getchar();
-        
-        if (inputChar == '\n') {
+        inputChar = _getch();
+
+        if (inputChar == '\r') { // Enter key
             break;
-        } else if (inputChar == '\b' || inputChar == 8) { // Backspace
+        } else if (inputChar == '\b') { // Backspace
             if (charIndex > 0) {
                 charIndex--;
-                printf("\b \b"); // Move back, clear character, move back again
+                printf("\b \b");
                 fflush(stdout);
             }
         } else {
-            password[charIndex] = inputChar;
+            password[charIndex++] = inputChar;
             printf("*");
             fflush(stdout);
-            charIndex++;
         }
     }
-    
+
     password[charIndex] = '\0';
     printf("\n");
 #else
     struct termios oldTerm, newTerm;
     int charIndex = 0;
     char inputChar;
-    
+
     // Get current terminal settings
     tcgetattr(STDIN_FILENO, &oldTerm);
     newTerm = oldTerm;
